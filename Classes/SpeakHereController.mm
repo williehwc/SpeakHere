@@ -286,7 +286,7 @@ void propListener(	void *                  inClientData,
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackQueueStopped:) name:@"playbackQueueStopped" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackQueueResumed:) name:@"playbackQueueResumed" object:nil];
 
-	UIColor *bgColor = [[UIColor alloc] initWithRed:.39 green:.44 blue:.57 alpha:.5];
+	UIColor *bgColor = [[UIColor alloc] initWithRed:.39 green:.44 blue:.57 alpha:0];
 	[lvlMeter_in setBackgroundColor:bgColor];
 	[lvlMeter_in setBorderColor:bgColor];
 	[bgColor release];

@@ -169,7 +169,7 @@ Copyright (C) 2012 Apple Inc. All Rights Reserved.
 			fr = CGRectMake(
 							totalRect.origin.x, 
 							totalRect.origin.y + (((CGFloat)i / (CGFloat)[_channelNumbers count]) * totalRect.size.height), 
-							totalRect.size.width, 
+							totalRect.size.width,
 							(1. / (CGFloat)[_channelNumbers count]) * totalRect.size.height - 2.
 							);
 		}

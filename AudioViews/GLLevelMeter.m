@@ -271,7 +271,7 @@ Copyright (C) 2012 Apple Inc. All Rights Reserved.
 								   0., 
 								   bds.size.height * ((CGFloat)(light_i) / (CGFloat)_numLights), 
 								   bds.size.width,
-								   bds.size.height * (1. / (CGFloat)_numLights)
+								   bds.size.height * (1. / (CGFloat)_numLights) * 0.75
 								   );
 			lightRect = CGRectInset(lightRect, insetAmount, insetAmount);
 
