@@ -115,9 +115,9 @@ Copyright (C) 2012 Apple Inc. All Rights Reserved.
 	_borderColor = [[UIColor alloc] initWithRed:0. green:0. blue:0. alpha:1.];
 	_colorThresholds = (LevelMeterColorThreshold*)malloc(3 * sizeof(LevelMeterColorThreshold));
 	_colorThresholds[0].maxValue = 0.6;
-	_colorThresholds[0].color = [[UIColor alloc] initWithRed:0. green:1. blue:0. alpha:1.];
+	_colorThresholds[0].color = [[UIColor alloc] initWithRed:0.8 green:0.8 blue:0.8 alpha:1.];
 	_colorThresholds[1].maxValue = 0.9;
-	_colorThresholds[1].color = [[UIColor alloc] initWithRed:1. green:1. blue:0. alpha:1.];
+	_colorThresholds[1].color = [[UIColor alloc] initWithRed:1. green:0.5 blue:0. alpha:1.];
 	_colorThresholds[2].maxValue = 1.;
 	_colorThresholds[2].color = [[UIColor alloc] initWithRed:1. green:0. blue:0. alpha:1.];
 	_vertical = ([self frame].size.width < [self frame].size.height) ? YES : NO;

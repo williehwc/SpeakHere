@@ -49,6 +49,9 @@ Copyright (C) 2012 Apple Inc. All Rights Reserved.
 
 #include "AQRecorder.h"
 
+bool websocketInitialized = false;
+JFRWebSocket *socket;
+
 // ____________________________________________________________________________________
 // Determine the size, in bytes, of a buffer necessary to represent the supplied number
 // of seconds of audio data.
@@ -102,6 +105,10 @@ void AQRecorder::MyInputBufferHandler(	void *								inUserData,
 											 inPacketDesc, aqr->mRecordPacket, &inNumPackets, inBuffer->mAudioData),
 					   "AudioFileWritePackets failed");
 			aqr->mRecordPacket += inNumPackets;
+            
+            // WILLIE: Send audio to WebSocket
+            // Source: https://developer.ibm.com/answers/questions/174947/stream-microphone-input-from-ios-to-speech-to-text/
+            [socket writeData:[NSData dataWithBytes:inBuffer->mAudioData length:inNumPackets]];
 		}
 		
 		// if we're not stopping, re-enqueue the buffe so that it gets filled again
@@ -176,7 +183,12 @@ void AQRecorder::SetupAudioFormat(UInt32 inFormatID)
 		mRecordFormat.mBitsPerChannel = 16;
 		mRecordFormat.mBytesPerPacket = mRecordFormat.mBytesPerFrame = (mRecordFormat.mBitsPerChannel / 8) * mRecordFormat.mChannelsPerFrame;
 		mRecordFormat.mFramesPerPacket = 1;
+        
+        // WILLIE: Force AQRecorder to use 16 kHz mono
+        mRecordFormat.mSampleRate = 16000.0;
+        mRecordFormat.mChannelsPerFrame = 1;
 	}
+
 }
 
 void AQRecorder::StartRecord(CFStringRef inRecordFile)
@@ -232,6 +244,29 @@ void AQRecorder::StartRecord(CFStringRef inRecordFile)
 		// start the queue
 		mIsRunning = true;
 		XThrowIfError(AudioQueueStart(mQueue, NULL), "AudioQueueStart failed");
+        
+        // WILLIE: Establish WebSocket session (address is hard-coded for now)
+        if (!websocketInitialized) {
+            socket = [[JFRWebSocket alloc] initWithURL:[NSURL URLWithString:@"ws://52.186.121.47:8888/client/ws/speech"] protocols:nil];
+            //websocketDidConnect
+            socket.onConnect = ^{
+                printf("websocket is connected");
+            };
+            //websocketDidDisconnect
+            socket.onDisconnect = ^(NSError *error) {
+                NSLog(@"websocket is disconnected: %@",[error localizedDescription]);
+            };
+            //websocketDidReceiveMessage
+            socket.onText = ^(NSString *text) {
+                NSLog(@"got some text: %@", text);
+            };
+            //websocketDidReceiveData
+            socket.onData = ^(NSData *data) {
+                NSLog(@"got some binary data: %d",data.length);
+            };
+            websocketInitialized = true;
+        }
+        [socket connect];
 	}
 	catch (CAXException e) {
 		char buf[256];
@@ -257,4 +292,7 @@ void AQRecorder::StopRecord()
 	}
 	AudioQueueDispose(mQueue, true);
 	AudioFileClose(mRecordFile);
+    
+    // WILLIE: Send "EOS" (the server, not the client, closes the connection)
+    [socket writeString:@"EOS"];
 }

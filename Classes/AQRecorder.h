@@ -54,6 +54,8 @@ Copyright (C) 2012 Apple Inc. All Rights Reserved.
 #include "CAStreamBasicDescription.h"
 #include "CAXException.h"
 
+#import "JFRWebSocket.h" // WILLIE
+
 #define kNumberRecordBuffers	3
 
 class AQRecorder 
