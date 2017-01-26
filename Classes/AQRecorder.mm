@@ -51,6 +51,7 @@ Copyright (C) 2012 Apple Inc. All Rights Reserved.
 
 bool websocketInitialized = false;
 JFRWebSocket *socket;
+NSString *serverURL = @"ws://52.186.121.47:8888/client/ws/speech?content-type=audio/x-raw,+layout=(string)interleaved,+rate=(int)16000,+format=(string)S16LE,+channels=(int)1";
 
 // ____________________________________________________________________________________
 // Determine the size, in bytes, of a buffer necessary to represent the supplied number
@@ -108,7 +109,7 @@ void AQRecorder::MyInputBufferHandler(	void *								inUserData,
             
             // WILLIE: Send audio to WebSocket
             // Source: https://developer.ibm.com/answers/questions/174947/stream-microphone-input-from-ios-to-speech-to-text/
-            [socket writeData:[NSData dataWithBytes:inBuffer->mAudioData length:inNumPackets]];
+            [socket writeData:[NSData dataWithBytes:inBuffer->mAudioData length:(inNumPackets * 2)]];
 		}
 		
 		// if we're not stopping, re-enqueue the buffe so that it gets filled again
@@ -247,7 +248,7 @@ void AQRecorder::StartRecord(CFStringRef inRecordFile)
         
         // WILLIE: Establish WebSocket session (address is hard-coded for now)
         if (!websocketInitialized) {
-            socket = [[JFRWebSocket alloc] initWithURL:[NSURL URLWithString:@"ws://52.186.121.47:8888/client/ws/speech"] protocols:nil];
+            socket = [[JFRWebSocket alloc] initWithURL:[NSURL URLWithString:serverURL] protocols:nil];
             //websocketDidConnect
             socket.onConnect = ^{
                 printf("websocket is connected");
