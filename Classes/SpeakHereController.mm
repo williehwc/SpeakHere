@@ -67,6 +67,7 @@ Copyright (C) 2012 Apple Inc. All Rights Reserved.
 @synthesize inBackground;
 
 bool show_sound_bites = false;
+bool landscape_orientation = false;
 
 char *OSTypeToStr(char *buf, OSType t)
 {
@@ -278,7 +279,8 @@ void propListener(	void *                  inClientData,
     // Set up sound bites
     sound_bites = [[ASJTagsView alloc] init];
     sound_bites_drawer.contentView = sound_bites;
-    [sound_bites addTag:@"Hello world"];
+    for (int i = 0; i < 100; i++)
+        [sound_bites addTag:@"Hello world"];
     [sound_bites setDeleteBlock:^(NSString *tagText, NSInteger idx)
      {
          printf("DELETE");
@@ -330,14 +332,20 @@ void propListener(	void *                  inClientData,
     [self registerForBackgroundNotifications];
 }
 
-- (void )orientationChanged
+- (void)orientationChanged
 {
-    if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
+    if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {
+        if (landscape_orientation)
+            return;
+        landscape_orientation = true;
         [btn_sound_bites setEnabled:NO];
         [btn_sound_bites setTintColor: [UIColor clearColor]];
         [sound_bites_drawer setHidden:NO];
         [sound_bites_drawer setFrame:CGRectMake(768, 64, 256, 659)];
     } else {
+        if (!landscape_orientation)
+            return;
+        landscape_orientation = false;
         [btn_sound_bites setEnabled:YES];
         [btn_sound_bites setTintColor:nil];
         [sound_bites_drawer setFrame:CGRectMake(0, 851, 768, 128)];

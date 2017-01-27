@@ -191,7 +191,7 @@ typedef struct CGPointSPUserResizableViewAnchorPointPair {
     UITouch *touch = [touches anyObject];
     anchorPoint = [self anchorPointForTouchLocation:[touch locationInView:self]];
     
-    noResize = (anchorPoint.adjustsH != -1 || anchorPoint.adjustsW != 0 || anchorPoint.adjustsX != 0 || anchorPoint.adjustsY != 1 || UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation));
+    noResize = (anchorPoint.adjustsH != -1 || anchorPoint.adjustsW != 0 || anchorPoint.adjustsX != 0 || anchorPoint.adjustsY != 1 || UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]));
     
     
     // When resizing, all calculations are done in the superview's coordinate space.
