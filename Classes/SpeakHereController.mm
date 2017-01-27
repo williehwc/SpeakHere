@@ -62,8 +62,11 @@ Copyright (C) 2012 Apple Inc. All Rights Reserved.
 
 @synthesize sound_bites_drawer;
 @synthesize sound_bites;
+@synthesize btn_sound_bites;
 
 @synthesize inBackground;
+
+bool show_sound_bites = false;
 
 char *OSTypeToStr(char *buf, OSType t)
 {
@@ -170,6 +173,18 @@ char *OSTypeToStr(char *buf, OSType t)
 	}	
 }
 
+- (IBAction)toggle_sound_bites:(id)sender
+{
+    if (show_sound_bites) {
+        [sound_bites_drawer setHidden:NO];
+        [btn_sound_bites setImage:[UIImage imageNamed:@"delete"]];
+    } else {
+        [sound_bites_drawer setHidden:YES];
+        [btn_sound_bites setImage:nil];
+    }
+    show_sound_bites = !show_sound_bites;
+}
+
 #pragma mark AudioSession listeners
 void interruptionListener(	void *	inClientData,
 							UInt32	inInterruptionState)
@@ -256,6 +271,10 @@ void propListener(	void *                  inClientData,
 #pragma mark Initialization routines
 - (void)awakeFromNib
 {
+    // Track orientation
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged) name:UIDeviceOrientationDidChangeNotification object:nil];
+    
     // Set up sound bites
     sound_bites = [[ASJTagsView alloc] init];
     sound_bites_drawer.contentView = sound_bites;
@@ -309,6 +328,22 @@ void propListener(	void *                  inClientData,
 	playbackWasPaused = NO;
     
     [self registerForBackgroundNotifications];
+}
+
+- (void )orientationChanged
+{
+    if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
+        [btn_sound_bites setEnabled:NO];
+        [btn_sound_bites setTintColor: [UIColor clearColor]];
+        [sound_bites_drawer setHidden:NO];
+        [sound_bites_drawer setFrame:CGRectMake(768, 64, 256, 659)];
+    } else {
+        [btn_sound_bites setEnabled:YES];
+        [btn_sound_bites setTintColor:nil];
+        [sound_bites_drawer setFrame:CGRectMake(0, 851, 768, 128)];
+        [sound_bites_drawer setHidden:YES];
+        [btn_sound_bites setImage:nil];
+    }
 }
 
 # pragma mark Notification routines

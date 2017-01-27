@@ -66,6 +66,7 @@ Copyright (C) 2012 Apple Inc. All Rights Reserved.
 	IBOutlet AQLevelMeter*		lvlMeter_in;
 
     IBOutlet SPUserResizableView* sound_bites_drawer;
+    IBOutlet UIBarButtonItem*	btn_sound_bites;
 
 	AQPlayer*					player;
 	AQRecorder*					recorder;
@@ -84,6 +85,7 @@ Copyright (C) 2012 Apple Inc. All Rights Reserved.
 
 @property (nonatomic, retain)	SPUserResizableView *sound_bites_drawer;
 @property (nonatomic, retain)   ASJTagsView         *sound_bites;
+@property (nonatomic, retain)	UIBarButtonItem		*btn_sound_bites;
 
 @property (readonly)			AQPlayer			*player;
 @property (readonly)			AQRecorder			*recorder;
@@ -92,5 +94,6 @@ Copyright (C) 2012 Apple Inc. All Rights Reserved.
 
 - (IBAction)record: (id) sender;
 - (IBAction)play: (id) sender;
+- (IBAction)toggle_sound_bites: (id) sender;
 
 @end

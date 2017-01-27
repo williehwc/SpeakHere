@@ -24,23 +24,24 @@
                     <rect key="frame" x="0.0" y="980" width="768" height="44"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <items>
-                        <barButtonItem title="Record" width="100" id="11">
+                        <barButtonItem title="Record" id="11">
                             <connections>
                                 <action selector="record:" destination="21" id="29"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" id="y0f-jj-fde">
                             <view key="customView" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" id="19" customClass="AQLevelMeter">
-                                <rect key="frame" x="130" y="6.5" width="241" height="31"/>
+                                <rect key="frame" x="85" y="6.5" width="241" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="13"/>
-                        <barButtonItem title="Play" width="100" id="12">
+                        <barButtonItem id="12"/>
+                        <barButtonItem title="Sound Bites" id="V5p-xv-6cx">
                             <connections>
-                                <action selector="play:" destination="21" id="30"/>
+                                <action selector="toggle_sound_bites:" destination="21" id="5cl-Uf-JhU"/>
                             </connections>
                         </barButtonItem>
                     </items>
@@ -52,7 +53,7 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view contentMode="scaleToFill" misplaced="YES" id="kk4-Jk-JXg" customClass="SPUserResizableView">
+                <view hidden="YES" contentMode="scaleToFill" misplaced="YES" id="kk4-Jk-JXg" customClass="SPUserResizableView">
                     <rect key="frame" x="0.0" y="852" width="768" height="128"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -65,6 +66,7 @@
             <connections>
                 <outlet property="btn_play" destination="12" id="27"/>
                 <outlet property="btn_record" destination="11" id="28"/>
+                <outlet property="btn_sound_bites" destination="V5p-xv-6cx" id="cxH-dM-uGS"/>
                 <outlet property="fileDescription" destination="20" id="22"/>
                 <outlet property="lvlMeter_in" destination="19" id="23"/>
                 <outlet property="sound_bites_drawer" destination="kk4-Jk-JXg" id="k3X-9e-adm"/>

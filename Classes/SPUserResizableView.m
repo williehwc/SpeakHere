@@ -260,7 +260,7 @@ typedef struct CGPointSPUserResizableViewAnchorPointPair {
         newWidth = self.frame.size.width;
         newX = self.frame.origin.x;
     }
-    if (newHeight < self.minHeight || newHeight > 512) {
+    if (newHeight < self.minHeight || newHeight > 768) {
         newHeight = self.frame.size.height;
         newY = self.frame.origin.y;
     }
