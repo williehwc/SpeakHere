@@ -9,4 +9,5 @@ target 'SpeakHere' do
 
   # Pods for SpeakHere
   pod 'jetfire', '~> 0.1'
+  pod 'ASJTagsView'
 end

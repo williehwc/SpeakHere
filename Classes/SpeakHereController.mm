@@ -60,6 +60,9 @@ Copyright (C) 2012 Apple Inc. All Rights Reserved.
 @synthesize lvlMeter_in;
 @synthesize playbackWasInterrupted;
 
+@synthesize sound_bites_drawer;
+@synthesize sound_bites;
+
 @synthesize inBackground;
 
 char *OSTypeToStr(char *buf, OSType t)
@@ -252,7 +255,16 @@ void propListener(	void *                  inClientData,
 				
 #pragma mark Initialization routines
 - (void)awakeFromNib
-{		
+{
+    // Set up sound bites
+    sound_bites = [[ASJTagsView alloc] init];
+    sound_bites_drawer.contentView = sound_bites;
+    [sound_bites addTag:@"Hello world"];
+    [sound_bites setDeleteBlock:^(NSString *tagText, NSInteger idx)
+     {
+         printf("DELETE");
+     }];
+    
 	// Allocate our singleton instance for the recorder & player object
 	recorder = new AQRecorder();
 	player = new AQPlayer();

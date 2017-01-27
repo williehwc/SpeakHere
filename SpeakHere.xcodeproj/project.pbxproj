@@ -19,6 +19,7 @@
 		2BC3DD8E15AB896400B0B61B /* CADebugMacros.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BC3DD8715AB896400B0B61B /* CADebugMacros.cpp */; };
 		2BC3DD9015AB896400B0B61B /* CAXException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BC3DD8C15AB896400B0B61B /* CAXException.cpp */; };
 		2BC3DD9215AB8AA100B0B61B /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC3DD9115AB8AA100B0B61B /* CoreAudio.framework */; };
+		96EF7DC61E3B011900C69E1F /* SPUserResizableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96EF7DC51E3B011900C69E1F /* SPUserResizableView.m */; };
 		AFC29B3C11D568A1006F150F /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = AFC29B3511D568A1006F150F /* Icon-72.png */; };
 		AFC29B3D11D568A1006F150F /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = AFC29B3611D568A1006F150F /* Icon-Small-50.png */; };
 		AFC29B3E11D568A1006F150F /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = AFC29B3711D568A1006F150F /* Icon-Small.png */; };
@@ -63,6 +64,8 @@
 		6902854CDB3D8F90050BB284 /* Pods-SpeakHere.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeakHere.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SpeakHere/Pods-SpeakHere.debug.xcconfig"; sourceTree = "<group>"; };
 		88FE26970F1FF8561287BCF1 /* libPods-SpeakHere.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SpeakHere.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		96EF7DC41E3B011900C69E1F /* SPUserResizableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPUserResizableView.h; sourceTree = "<group>"; };
+		96EF7DC51E3B011900C69E1F /* SPUserResizableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPUserResizableView.m; sourceTree = "<group>"; };
 		AFC29B3511D568A1006F150F /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "Images/Icon-72.png"; sourceTree = "<group>"; };
 		AFC29B3611D568A1006F150F /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-50.png"; path = "Images/Icon-Small-50.png"; sourceTree = "<group>"; };
 		AFC29B3711D568A1006F150F /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small.png"; path = "Images/Icon-Small.png"; sourceTree = "<group>"; };
@@ -116,6 +119,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				96EF7DC41E3B011900C69E1F /* SPUserResizableView.h */,
+				96EF7DC51E3B011900C69E1F /* SPUserResizableView.m */,
 				F76949EE0F40F337006C6FBF /* Play & Record */,
 				F76949C50F40F2AC006C6FBF /* SpeakHereController.h */,
 				F76949C60F40F2AC006C6FBF /* SpeakHereController.mm */,
@@ -375,6 +380,7 @@
 				1D3623260D0F684500981E51 /* SpeakHereAppDelegate.m in Sources */,
 				28D7ACF80DDB3853001CB0EB /* SpeakHereViewController.m in Sources */,
 				F76949C70F40F2AC006C6FBF /* SpeakHereController.mm in Sources */,
+				96EF7DC61E3B011900C69E1F /* SPUserResizableView.m in Sources */,
 				F76949E80F40F32A006C6FBF /* AQLevelMeter.mm in Sources */,
 				F76949E90F40F32A006C6FBF /* GLLevelMeter.m in Sources */,
 				F76949EA0F40F32A006C6FBF /* LevelMeter.m in Sources */,

@@ -54,6 +54,9 @@ Copyright (C) 2012 Apple Inc. All Rights Reserved.
 #import "AQPlayer.h"
 #import "AQRecorder.h"
 
+#import "ASJTagsView.h"
+#import "SPUserResizableView.h"
+
 
 @interface SpeakHereController : NSObject {
 
@@ -61,6 +64,8 @@ Copyright (C) 2012 Apple Inc. All Rights Reserved.
 	IBOutlet UIBarButtonItem*	btn_play;
 	IBOutlet UILabel*			fileDescription;
 	IBOutlet AQLevelMeter*		lvlMeter_in;
+
+    IBOutlet SPUserResizableView* sound_bites_drawer;
 
 	AQPlayer*					player;
 	AQRecorder*					recorder;
@@ -76,6 +81,9 @@ Copyright (C) 2012 Apple Inc. All Rights Reserved.
 @property (nonatomic, retain)	UIBarButtonItem		*btn_play;
 @property (nonatomic, retain)	UILabel				*fileDescription;
 @property (nonatomic, retain)	AQLevelMeter		*lvlMeter_in;
+
+@property (nonatomic, retain)	SPUserResizableView *sound_bites_drawer;
+@property (nonatomic, retain)   ASJTagsView         *sound_bites;
 
 @property (readonly)			AQPlayer			*player;
 @property (readonly)			AQRecorder			*recorder;
