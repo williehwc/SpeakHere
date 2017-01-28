@@ -16,8 +16,7 @@ NSString *guess;
 - (id) initWithView:(ASJTagsView *)sound_bites_view {
     self = [super init];
     sound_bites = sound_bites_view;
-    guess = [[NSString alloc] init];
-    guess = @"";
+    guess = [@"~" retain];
     [sound_bites setTagColor:[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0]];
     [sound_bites setDeleteBlock:^(NSString *tagText, NSInteger idx)
      {
@@ -29,13 +28,14 @@ NSString *guess;
 - (void) setGuess:(NSString *)text {
     [sound_bites deleteTag:[@"~" stringByAppendingString:guess]];
     [sound_bites addTag:[@"~" stringByAppendingString:text]];
-    guess = text;
+    guess = [text retain];
+    NSLog(@"%@", guess);
 }
 
 - (void) addFinal:(NSArray *)hypotheses {
     [sound_bites deleteTag:[@"~" stringByAppendingString:guess]];
     [sound_bites addTag:hypotheses[0]];
-    guess = @"";
+    guess = [@"~" retain];
 }
 
 @end

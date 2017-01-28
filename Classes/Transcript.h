@@ -9,9 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "ASJTagsView.h"
 
-/*typedef struct SoundBite {
-    NSString *text;
-} SoundBite;*/
+typedef struct SoundBite {
+    NSString *hypothesis;
+    NSArray *otherHypotheses;
+} SoundBite;
 
 @interface Transcript : NSObject
 
