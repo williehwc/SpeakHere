@@ -11,10 +11,13 @@
 @implementation Transcript
 
 ASJTagsView *sound_bites;
-NSString *hypothesis;
+NSString *guess;
 
 - (id) initWithView:(ASJTagsView *)sound_bites_view {
+    self = [super init];
     sound_bites = sound_bites_view;
+    guess = [[NSString alloc] init];
+    guess = @"";
     [sound_bites setTagColor:[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0]];
     [sound_bites setDeleteBlock:^(NSString *tagText, NSInteger idx)
      {
@@ -23,16 +26,16 @@ NSString *hypothesis;
     return self;
 }
 
-- (void) setHypothesis:(NSString *)text {
-    [sound_bites deleteTag:[@"~" stringByAppendingString:(hypothesis) ? hypothesis : @""]];
+- (void) setGuess:(NSString *)text {
+    [sound_bites deleteTag:[@"~" stringByAppendingString:guess]];
     [sound_bites addTag:[@"~" stringByAppendingString:text]];
-    hypothesis = text;
+    guess = text;
 }
 
-- (void) addFinal:(NSString *)text {
-    [sound_bites deleteTag:[@"~" stringByAppendingString:(hypothesis) ? hypothesis : @""]];
-    [sound_bites addTag:text];
-    hypothesis = nil;
+- (void) addFinal:(NSArray *)hypotheses {
+    [sound_bites deleteTag:[@"~" stringByAppendingString:guess]];
+    [sound_bites addTag:hypotheses[0]];
+    guess = @"";
 }
 
 @end

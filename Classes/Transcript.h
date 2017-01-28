@@ -16,7 +16,7 @@
 @interface Transcript : NSObject
 
 - (id) initWithView:(ASJTagsView *) sound_bites_view;
-- (void) setHypothesis:(NSString *) text;
-- (void) addFinal:(NSString *) text;
+- (void) setGuess:(NSString *) text;
+- (void) addFinal:(NSArray *) hypotheses;
 
 @end
