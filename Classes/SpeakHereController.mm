@@ -56,7 +56,6 @@ Copyright (C) 2012 Apple Inc. All Rights Reserved.
 
 @synthesize btn_record;
 @synthesize btn_play;
-@synthesize fileDescription;
 @synthesize lvlMeter_in;
 @synthesize playbackWasInterrupted;
 
@@ -67,7 +66,9 @@ Copyright (C) 2012 Apple Inc. All Rights Reserved.
 @synthesize inBackground;
 
 bool landscape_orientation = false;
-SoundBites *soundBites;
+Transcript *transcript;
+
+NSString *serverURL = @"ws://52.186.121.47:8888/client/ws/speech?content-type=audio/x-raw,+layout=(string)interleaved,+rate=(int)44100,+format=(string)S16LE,+channels=(int)1";
 
 char *OSTypeToStr(char *buf, OSType t)
 {
@@ -92,7 +93,7 @@ char *OSTypeToStr(char *buf, OSType t)
 	char buf[5];
 	const char *dataFormat = OSTypeToStr(buf, format.mFormatID);
 	NSString* description = [[NSString alloc] initWithFormat:@"(%ld ch. %s @ %g Hz)", format.NumberChannels(), dataFormat, format.mSampleRate, nil];
-	fileDescription.text = description;
+	NSLog(@"%@", description);
 	[description release];	
 }
 
@@ -171,6 +172,10 @@ char *OSTypeToStr(char *buf, OSType t)
 		
 		// Hook the level meter up to the Audio Queue for the recorder
 		[lvlMeter_in setAq: recorder->Queue()];
+        
+        // Show sound bites
+        [sound_bites_drawer setHidden:NO];
+        [btn_sound_bites setImage:[UIImage imageNamed:@"delete"]];
 	}	
 }
 
@@ -278,12 +283,10 @@ void propListener(	void *                  inClientData,
     // Set up sound bites
     sound_bites = [[ASJTagsView alloc] init];
     sound_bites_drawer.contentView = sound_bites;
-    soundBites = [[SoundBites alloc] initWithView:sound_bites];
-    [soundBites addFinal:@"OK"];
-    [soundBites setHypothesis:@"OK"];
+    transcript = [[Transcript alloc] initWithView:sound_bites];
     
 	// Allocate our singleton instance for the recorder & player object
-	recorder = new AQRecorder();
+	recorder = new AQRecorder([[KaldiClient alloc] initWithTranscript:transcript withUrl:serverURL]);
 	player = new AQPlayer();
 		
 	OSStatus error = AudioSessionInitialize(NULL, NULL, interruptionListener, self);
@@ -400,7 +403,6 @@ void propListener(	void *                  inClientData,
 {
 	[btn_record release];
 	[btn_play release];
-	[fileDescription release];
 	[lvlMeter_in release];
 	
 	delete player;

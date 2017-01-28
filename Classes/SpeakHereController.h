@@ -56,13 +56,13 @@ Copyright (C) 2012 Apple Inc. All Rights Reserved.
 
 #import "ASJTagsView.h"
 #import "SPUserResizableView.h"
-#import "SoundBites.h"
+#import "Transcript.h"
+#import "KaldiClient.h"
 
 @interface SpeakHereController : NSObject {
 
 	IBOutlet UIBarButtonItem*	btn_record;
 	IBOutlet UIBarButtonItem*	btn_play;
-	IBOutlet UILabel*			fileDescription;
 	IBOutlet AQLevelMeter*		lvlMeter_in;
 
     IBOutlet SPUserResizableView* sound_bites_drawer;

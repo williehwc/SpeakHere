@@ -48,10 +48,7 @@ Copyright (C) 2012 Apple Inc. All Rights Reserved.
 */
 
 #include "AQRecorder.h"
-
-bool websocketInitialized = false;
-JFRWebSocket *socket;
-NSString *serverURL = @"ws://52.186.121.47:8888/client/ws/speech?content-type=audio/x-raw,+layout=(string)interleaved,+rate=(int)16000,+format=(string)S16LE,+channels=(int)1";
+KaldiClient *kaldiClient;
 
 // ____________________________________________________________________________________
 // Determine the size, in bytes, of a buffer necessary to represent the supplied number
@@ -107,9 +104,7 @@ void AQRecorder::MyInputBufferHandler(	void *								inUserData,
 					   "AudioFileWritePackets failed");
 			aqr->mRecordPacket += inNumPackets;
             
-            // WILLIE: Send audio to WebSocket
-            // Source: https://developer.ibm.com/answers/questions/174947/stream-microphone-input-from-ios-to-speech-to-text/
-            [socket writeData:[NSData dataWithBytes:inBuffer->mAudioData length:(inNumPackets * 2)]];
+            [kaldiClient streamAudioData:[NSData dataWithBytes:inBuffer->mAudioData length:(inNumPackets * 2)]];
 		}
 		
 		// if we're not stopping, re-enqueue the buffe so that it gets filled again
@@ -121,8 +116,9 @@ void AQRecorder::MyInputBufferHandler(	void *								inUserData,
 	}
 }
 
-AQRecorder::AQRecorder()
+AQRecorder::AQRecorder(KaldiClient* newKaldiClient)
 {
+    kaldiClient = newKaldiClient;
 	mIsRunning = false;
 	mRecordPacket = 0;
 }
@@ -185,8 +181,9 @@ void AQRecorder::SetupAudioFormat(UInt32 inFormatID)
 		mRecordFormat.mBytesPerPacket = mRecordFormat.mBytesPerFrame = (mRecordFormat.mBitsPerChannel / 8) * mRecordFormat.mChannelsPerFrame;
 		mRecordFormat.mFramesPerPacket = 1;
         
-        // WILLIE: Force AQRecorder to use 16 kHz mono
-        mRecordFormat.mSampleRate = 16000.0;
+        // WILLIE: Force AQRecorder to use 44.1 kHz mono
+        // (It should already do so on iPad Pro 9.7", but just in case future iPads change the default params)
+        mRecordFormat.mSampleRate = 44100.0;
         mRecordFormat.mChannelsPerFrame = 1;
 	}
 
@@ -246,28 +243,7 @@ void AQRecorder::StartRecord(CFStringRef inRecordFile)
 		mIsRunning = true;
 		XThrowIfError(AudioQueueStart(mQueue, NULL), "AudioQueueStart failed");
         
-        // WILLIE: Establish WebSocket session (address is hard-coded for now)
-        if (!websocketInitialized) {
-            socket = [[JFRWebSocket alloc] initWithURL:[NSURL URLWithString:serverURL] protocols:nil];
-            //websocketDidConnect
-            socket.onConnect = ^{
-                printf("websocket is connected");
-            };
-            //websocketDidDisconnect
-            socket.onDisconnect = ^(NSError *error) {
-                NSLog(@"websocket is disconnected: %@",[error localizedDescription]);
-            };
-            //websocketDidReceiveMessage
-            socket.onText = ^(NSString *text) {
-                NSLog(@"got some text: %@", text);
-            };
-            //websocketDidReceiveData
-            socket.onData = ^(NSData *data) {
-                NSLog(@"got some binary data: %d",data.length);
-            };
-            websocketInitialized = true;
-        }
-        [socket connect];
+        [kaldiClient streamStart];
 	}
 	catch (CAXException e) {
 		char buf[256];
@@ -294,6 +270,5 @@ void AQRecorder::StopRecord()
 	AudioQueueDispose(mQueue, true);
 	AudioFileClose(mRecordFile);
     
-    // WILLIE: Send "EOS" (the server, not the client, closes the connection)
-    [socket writeString:@"EOS"];
+    [kaldiClient streamEnd];
 }

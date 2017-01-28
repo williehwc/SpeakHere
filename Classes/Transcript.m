@@ -1,16 +1,17 @@
 //
-//  SoundBites.m
+//  Transcript.m
 //  SpeakHere
 //
 //  Created by Willie Chang on 1/27/17.
 //
 //
 
-#import "SoundBites.h"
+#import "Transcript.h"
 
-@implementation SoundBites
+@implementation Transcript
 
-@synthesize sound_bites, hypothesis;
+ASJTagsView *sound_bites;
+NSString *hypothesis;
 
 - (id) initWithView:(ASJTagsView *)sound_bites_view {
     sound_bites = sound_bites_view;
@@ -23,13 +24,13 @@
 }
 
 - (void) setHypothesis:(NSString *)text {
-    [sound_bites deleteTag:hypothesis];
+    [sound_bites deleteTag:[@"~" stringByAppendingString:(hypothesis) ? hypothesis : @""]];
     [sound_bites addTag:[@"~" stringByAppendingString:text]];
     hypothesis = text;
 }
 
 - (void) addFinal:(NSString *)text {
-    [sound_bites deleteTag:hypothesis];
+    [sound_bites deleteTag:[@"~" stringByAppendingString:(hypothesis) ? hypothesis : @""]];
     [sound_bites addTag:text];
     hypothesis = nil;
 }

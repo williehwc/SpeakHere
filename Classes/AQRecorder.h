@@ -53,15 +53,14 @@ Copyright (C) 2012 Apple Inc. All Rights Reserved.
 
 #include "CAStreamBasicDescription.h"
 #include "CAXException.h"
-
-#import "JFRWebSocket.h" // WILLIE
+#include "KaldiClient.h"
 
 #define kNumberRecordBuffers	3
 
 class AQRecorder 
 	{
 	public:
-		AQRecorder();
+		AQRecorder(KaldiClient* newKaldiClient);
 		~AQRecorder();
 		
 		UInt32						GetNumberChannels() const	{ return mRecordFormat.NumberChannels(); }
