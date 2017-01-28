@@ -19,6 +19,7 @@
 		2BC3DD8E15AB896400B0B61B /* CADebugMacros.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BC3DD8715AB896400B0B61B /* CADebugMacros.cpp */; };
 		2BC3DD9015AB896400B0B61B /* CAXException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BC3DD8C15AB896400B0B61B /* CAXException.cpp */; };
 		2BC3DD9215AB8AA100B0B61B /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC3DD9115AB8AA100B0B61B /* CoreAudio.framework */; };
+		969F2CC41E3C531D006B77DB /* SoundBites.m in Sources */ = {isa = PBXBuildFile; fileRef = 969F2CC31E3C531D006B77DB /* SoundBites.m */; };
 		96A7E37A1E3BEE39003E06CA /* delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96A7E3791E3BEE39003E06CA /* delete@2x.png */; };
 		96EF7DC61E3B011900C69E1F /* SPUserResizableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96EF7DC51E3B011900C69E1F /* SPUserResizableView.m */; };
 		AFC29B3C11D568A1006F150F /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = AFC29B3511D568A1006F150F /* Icon-72.png */; };
@@ -65,6 +66,8 @@
 		6902854CDB3D8F90050BB284 /* Pods-SpeakHere.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeakHere.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SpeakHere/Pods-SpeakHere.debug.xcconfig"; sourceTree = "<group>"; };
 		88FE26970F1FF8561287BCF1 /* libPods-SpeakHere.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SpeakHere.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		969F2CC21E3C5312006B77DB /* SoundBites.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SoundBites.h; sourceTree = "<group>"; };
+		969F2CC31E3C531D006B77DB /* SoundBites.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundBites.m; sourceTree = "<group>"; };
 		96A7E3791E3BEE39003E06CA /* delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete@2x.png"; sourceTree = "<group>"; };
 		96EF7DC41E3B011900C69E1F /* SPUserResizableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPUserResizableView.h; sourceTree = "<group>"; };
 		96EF7DC51E3B011900C69E1F /* SPUserResizableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPUserResizableView.m; sourceTree = "<group>"; };
@@ -130,6 +133,8 @@
 				1D3623250D0F684500981E51 /* SpeakHereAppDelegate.m */,
 				28D7ACF60DDB3853001CB0EB /* SpeakHereViewController.h */,
 				28D7ACF70DDB3853001CB0EB /* SpeakHereViewController.m */,
+				969F2CC31E3C531D006B77DB /* SoundBites.m */,
+				969F2CC21E3C5312006B77DB /* SoundBites.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -389,6 +394,7 @@
 				F76949E90F40F32A006C6FBF /* GLLevelMeter.m in Sources */,
 				F76949EA0F40F32A006C6FBF /* LevelMeter.m in Sources */,
 				F76949F30F40F34D006C6FBF /* AQPlayer.mm in Sources */,
+				969F2CC41E3C531D006B77DB /* SoundBites.m in Sources */,
 				F76949F40F40F34D006C6FBF /* AQRecorder.mm in Sources */,
 				F76949FA0F40F40B006C6FBF /* MeterTable.cpp in Sources */,
 				2BC3DD8E15AB896400B0B61B /* CADebugMacros.cpp in Sources */,
@@ -416,6 +422,7 @@
 			baseConfigurationReference = 6902854CDB3D8F90050BB284 /* Pods-SpeakHere.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = NCL26XB43G;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -434,6 +441,7 @@
 			baseConfigurationReference = B65B87FFF7A40B2947EDB5B6 /* Pods-SpeakHere.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = NCL26XB43G;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
