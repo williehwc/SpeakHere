@@ -56,7 +56,7 @@ Copyright (C) 2012 Apple Inc. All Rights Reserved.
 
 #import "ASJTagsView.h"
 #import "SPUserResizableView.h"
-
+#import "SoundBites.h"
 
 @interface SpeakHereController : NSObject {
 

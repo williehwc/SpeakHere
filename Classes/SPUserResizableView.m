@@ -42,16 +42,18 @@ bool noResize = false;
 }
 
 - (void)drawRect:(CGRect)rect {
-    return;
+    
+    if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
+        return;
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSaveGState(context);
     
     // (1) Draw the bounding box.
-    CGContextSetLineWidth(context, 1.0);
-    CGContextSetStrokeColorWithColor(context, [UIColor blueColor].CGColor);
-    CGContextAddRect(context, CGRectInset(self.bounds, kSPUserResizableViewInteractiveBorderSize/2, kSPUserResizableViewInteractiveBorderSize/2));
-    CGContextStrokePath(context);
+    //CGContextSetLineWidth(context, 1.0);
+    //CGContextSetStrokeColorWithColor(context, [UIColor blueColor].CGColor);
+    //CGContextAddRect(context, CGRectInset(self.bounds, kSPUserResizableViewInteractiveBorderSize/2, kSPUserResizableViewInteractiveBorderSize/2));
+    //CGContextStrokePath(context);
     
     // (2) Calculate the bounding boxes for each of the anchor points.
     CGRect upperLeft = CGRectMake(0.0, 0.0, kSPUserResizableViewInteractiveBorderSize, kSPUserResizableViewInteractiveBorderSize);
@@ -65,21 +67,23 @@ bool noResize = false;
     
     // (3) Create the gradient to paint the anchor points.
     CGFloat colors [] = { 
-        0.4, 0.8, 1.0, 1.0, 
-        0.0, 0.0, 1.0, 1.0
+        0.6, 0.6, 0.6, 1.0,
+        0.8, 0.8, 0.8, 1.0
     };
     CGColorSpaceRef baseSpace = CGColorSpaceCreateDeviceRGB();
     CGGradientRef gradient = CGGradientCreateWithColorComponents(baseSpace, colors, NULL, 2);
     CGColorSpaceRelease(baseSpace), baseSpace = NULL;
     
     // (4) Set up the stroke for drawing the border of each of the anchor points.
-    CGContextSetLineWidth(context, 1);
+    CGContextSetLineWidth(context, 0);
     CGContextSetShadow(context, CGSizeMake(0.5, 0.5), 1);
     CGContextSetStrokeColorWithColor(context, [UIColor whiteColor].CGColor);
     
     // (5) Fill each anchor point using the gradient, then stroke the border.
     CGRect allPoints[8] = { upperLeft, upperRight, lowerRight, lowerLeft, upperMiddle, lowerMiddle, middleLeft, middleRight };
     for (NSInteger i = 0; i < 8; i++) {
+        if (i != 4)
+            continue;
         CGRect currPoint = allPoints[i];
         CGContextSaveGState(context);
         CGContextAddEllipseInRect(context, currPoint);
@@ -88,7 +92,7 @@ bool noResize = false;
         CGPoint endPoint = CGPointMake(CGRectGetMidX(currPoint), CGRectGetMaxY(currPoint));
         CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, 0);
         CGContextRestoreGState(context);
-        CGContextStrokeEllipseInRect(context, CGRectInset(currPoint, 1, 1));
+        CGContextStrokeEllipseInRect(context, CGRectInset(currPoint, 2, 2));
     }
     CGGradientRelease(gradient), gradient = NULL;
     CGContextRestoreGState(context);
@@ -102,7 +106,7 @@ bool noResize = false;
 
 - (void)setupDefaultAttributes {
     borderView = [[SPGripViewBorderView alloc] initWithFrame:CGRectInset(self.bounds, kSPUserResizableViewGlobalInset, kSPUserResizableViewGlobalInset)];
-    [borderView setHidden:YES];
+    [borderView setHidden:NO];
     [self addSubview:borderView];
     self.minWidth = kSPUserResizableViewDefaultMinWidth;
     self.minHeight = kSPUserResizableViewDefaultMinHeight;
@@ -130,8 +134,8 @@ bool noResize = false;
     [self addSubview:contentView];
     
     // Ensure the border view is always on top by removing it and adding it to the end of the subview list.
-    [borderView removeFromSuperview];
-    [self addSubview:borderView];
+    //[borderView removeFromSuperview];
+    //[self addSubview:borderView];
 }
 
 - (void)setFrame:(CGRect)newFrame {
@@ -204,7 +208,6 @@ typedef struct CGPointSPUserResizableViewAnchorPointPair {
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     // Notify the delegate we've ended our editing session.
-    [borderView setHidden:YES];
     if (self.delegate && [self.delegate respondsToSelector:@selector(userResizableViewDidEndEditing:)]) {
         [self.delegate userResizableViewDidEndEditing:self];
     }

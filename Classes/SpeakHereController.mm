@@ -66,8 +66,8 @@ Copyright (C) 2012 Apple Inc. All Rights Reserved.
 
 @synthesize inBackground;
 
-bool show_sound_bites = false;
 bool landscape_orientation = false;
+SoundBites *soundBites;
 
 char *OSTypeToStr(char *buf, OSType t)
 {
@@ -176,14 +176,13 @@ char *OSTypeToStr(char *buf, OSType t)
 
 - (IBAction)toggle_sound_bites:(id)sender
 {
-    if (show_sound_bites) {
+    if ([sound_bites_drawer isHidden]) {
         [sound_bites_drawer setHidden:NO];
         [btn_sound_bites setImage:[UIImage imageNamed:@"delete"]];
     } else {
         [sound_bites_drawer setHidden:YES];
         [btn_sound_bites setImage:nil];
     }
-    show_sound_bites = !show_sound_bites;
 }
 
 #pragma mark AudioSession listeners
@@ -279,12 +278,9 @@ void propListener(	void *                  inClientData,
     // Set up sound bites
     sound_bites = [[ASJTagsView alloc] init];
     sound_bites_drawer.contentView = sound_bites;
-    for (int i = 0; i < 100; i++)
-        [sound_bites addTag:@"Hello world"];
-    [sound_bites setDeleteBlock:^(NSString *tagText, NSInteger idx)
-     {
-         printf("DELETE");
-     }];
+    soundBites = [[SoundBites alloc] initWithView:sound_bites];
+    [soundBites addFinal:@"OK"];
+    [soundBites setHypothesis:@"OK"];
     
 	// Allocate our singleton instance for the recorder & player object
 	recorder = new AQRecorder();
@@ -338,6 +334,7 @@ void propListener(	void *                  inClientData,
         if (landscape_orientation)
             return;
         landscape_orientation = true;
+        // Show sound bites pane
         [btn_sound_bites setEnabled:NO];
         [btn_sound_bites setTintColor: [UIColor clearColor]];
         [sound_bites_drawer setHidden:NO];
@@ -346,6 +343,7 @@ void propListener(	void *                  inClientData,
         if (!landscape_orientation)
             return;
         landscape_orientation = false;
+        // Hide sound bites drawer
         [btn_sound_bites setEnabled:YES];
         [btn_sound_bites setTintColor:nil];
         [sound_bites_drawer setFrame:CGRectMake(0, 851, 768, 128)];
