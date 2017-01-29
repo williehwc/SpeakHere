@@ -10,32 +10,73 @@
 
 @implementation Transcript
 
-ASJTagsView *sound_bites;
+ASJTagsView *soundBitesView;
 NSString *guess;
+NSMutableArray *soundBites;
 
-- (id) initWithView:(ASJTagsView *)sound_bites_view {
+- (id) initWithView:(ASJTagsView *)newSoundBitesView {
     self = [super init];
-    sound_bites = sound_bites_view;
-    guess = [@"~" retain];
-    [sound_bites setTagColor:[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0]];
-    [sound_bites setDeleteBlock:^(NSString *tagText, NSInteger idx)
+    soundBitesView = newSoundBitesView;
+    guess = @"";
+    soundBites = [[NSMutableArray alloc] init];
+    [soundBitesView setTagColor:[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0]];
+    [soundBitesView setTapBlock:^(NSString *tagText, NSInteger idx, UIButton* tagButton)
      {
-         printf("DELETE");
+         // Show hypotheses
+         NSArray *hypotheses = [[soundBites objectAtIndex:idx] objectForKey:@"hypotheses"];
+         
+         // Get initial selection
+         int initialSelection = 0;
+         for (int i = 0; i < [hypotheses count]; i++) {
+             if ([[hypotheses objectAtIndex:i] isEqualToString:[[soundBites objectAtIndex:idx] objectForKey:@"currentHypothesis"]]) {
+                 initialSelection = i;
+             }
+         }
+         
+         [ActionSheetStringPicker
+          showPickerWithTitle: @"Select interpretation"
+          rows: hypotheses
+          initialSelection: initialSelection
+          doneBlock: ^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
+              // Set new current hypothesis
+              NSDictionary *replacementDictionary = @{@"currentHypothesis" : [[hypotheses objectAtIndex:selectedIndex] retain], @"hypotheses" : [hypotheses retain]};
+              soundBites[idx] = replacementDictionary;
+              // Replace all tags
+              NSMutableArray *replacementTags = [NSMutableArray array];
+              for (int i = 0; i < [soundBites count]; i++) {
+                  [replacementTags addObject:[[soundBites objectAtIndex:i] objectForKey:@"currentHypothesis"]];
+              }
+              CGPoint scrollPosition = [soundBitesView contentOffset];
+              [soundBitesView replaceTags:replacementTags];
+              soundBitesView.contentOffset = scrollPosition;
+          }
+          cancelBlock: ^(ActionSheetStringPicker *picker) {}
+          origin: tagButton];
+     }];
+    [soundBitesView setDeleteBlock:^(NSString *tagText, NSInteger idx, UIButton* tagButton)
+     {
+         // TODO: Drag and drop
      }];
     return self;
 }
 
 - (void) setGuess:(NSString *)text {
-    [sound_bites deleteTag:[@"~" stringByAppendingString:guess]];
-    [sound_bites addTag:[@"~" stringByAppendingString:text]];
+    // Protip: use "retain" when passing pointer of an input variable to a member variable
+    // to ensure that the variable the pointer is pointing to does not get cleaned up!
+    [soundBitesView deleteTag:[@"@" stringByAppendingString:guess]];
+    [soundBitesView addTag:[@"@" stringByAppendingString:text]];
     guess = [text retain];
-    NSLog(@"%@", guess);
 }
 
 - (void) addFinal:(NSArray *)hypotheses {
-    [sound_bites deleteTag:[@"~" stringByAppendingString:guess]];
-    [sound_bites addTag:hypotheses[0]];
-    guess = [@"~" retain];
+    // Add to sound bites
+    NSDictionary *soundBite = @{@"currentHypothesis" : [hypotheses[0] retain], @"hypotheses" : [hypotheses retain]};
+    [soundBites addObject:soundBite];
+    // Add tag
+    [soundBitesView deleteTag:[@"@" stringByAppendingString:guess]];
+    [soundBitesView addTag:hypotheses[0]];
+    guess = @"";
+    
 }
 
 @end

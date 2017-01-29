@@ -5,9 +5,10 @@ project 'SpeakHere.xcodeproj'
 
 target 'SpeakHere' do
   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
-  # use_frameworks!
+  #use_frameworks!
 
   # Pods for SpeakHere
   pod 'jetfire', '~> 0.1'
   pod 'ASJTagsView', :git => 'https://github.com/williehwc/ASJTagsView.git'
+  pod 'ActionSheetPicker-3.0'
 end

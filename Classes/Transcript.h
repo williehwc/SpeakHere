@@ -8,11 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ASJTagsView.h"
-
-typedef struct SoundBite {
-    NSString *hypothesis;
-    NSArray *otherHypotheses;
-} SoundBite;
+#import "ActionSheetPicker.h"
 
 @interface Transcript : NSObject
 

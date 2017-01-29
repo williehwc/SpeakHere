@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		10FE302541C9A73B3D4FE15B /* libPods-SpeakHere.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 88FE26970F1FF8561287BCF1 /* libPods-SpeakHere.a */; };
 		1D3623260D0F684500981E51 /* SpeakHereAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* SpeakHereAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -15,6 +14,7 @@
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		2899E5220DE3E06400AC0155 /* SpeakHereViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E5210DE3E06400AC0155 /* SpeakHereViewController.xib */; };
 		28D7ACF80DDB3853001CB0EB /* SpeakHereViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* SpeakHereViewController.m */; };
+		2A41744A7CDDB1129C8B30EC /* libPods-SpeakHere.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E1B4BFA2563A05916F3EA49 /* libPods-SpeakHere.a */; };
 		2B3FF7FF15ABA19400D09510 /* CAStreamBasicDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BC3DD8A15AB896400B0B61B /* CAStreamBasicDescription.cpp */; };
 		2BC3DD8E15AB896400B0B61B /* CADebugMacros.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BC3DD8715AB896400B0B61B /* CADebugMacros.cpp */; };
 		2BC3DD9015AB896400B0B61B /* CAXException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BC3DD8C15AB896400B0B61B /* CAXException.cpp */; };
@@ -64,8 +64,8 @@
 		2BC3DD8D15AB896400B0B61B /* CAXException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAXException.h; sourceTree = "<group>"; };
 		2BC3DD9115AB8AA100B0B61B /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		32CA4F630368D1EE00C91783 /* SpeakHere_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeakHere_Prefix.pch; sourceTree = "<group>"; };
+		5E1B4BFA2563A05916F3EA49 /* libPods-SpeakHere.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SpeakHere.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6902854CDB3D8F90050BB284 /* Pods-SpeakHere.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeakHere.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SpeakHere/Pods-SpeakHere.debug.xcconfig"; sourceTree = "<group>"; };
-		88FE26970F1FF8561287BCF1 /* libPods-SpeakHere.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SpeakHere.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		969F2CC21E3C5312006B77DB /* Transcript.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Transcript.h; sourceTree = "<group>"; };
 		969F2CC31E3C531D006B77DB /* Transcript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Transcript.m; sourceTree = "<group>"; };
@@ -117,7 +117,7 @@
 				F7694A510F40F82A006C6FBF /* OpenGLES.framework in Frameworks */,
 				F7694A5A0F40F844006C6FBF /* QuartzCore.framework in Frameworks */,
 				2BC3DD9215AB8AA100B0B61B /* CoreAudio.framework in Frameworks */,
-				10FE302541C9A73B3D4FE15B /* libPods-SpeakHere.a in Frameworks */,
+				2A41744A7CDDB1129C8B30EC /* libPods-SpeakHere.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,8 +136,8 @@
 				1D3623250D0F684500981E51 /* SpeakHereAppDelegate.m */,
 				28D7ACF60DDB3853001CB0EB /* SpeakHereViewController.h */,
 				28D7ACF70DDB3853001CB0EB /* SpeakHereViewController.m */,
-				969F2CC31E3C531D006B77DB /* Transcript.m */,
 				969F2CC21E3C5312006B77DB /* Transcript.h */,
+				969F2CC31E3C531D006B77DB /* Transcript.m */,
 				969F2CC51E3CDD7F006B77DB /* KaldiClient.h */,
 				969F2CC61E3CDD7F006B77DB /* KaldiClient.m */,
 			);
@@ -161,7 +161,7 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
+		29B97314FDCFA39411CA2CEA = {
 			isa = PBXGroup;
 			children = (
 				F73FE19D0F743C1900F0F3CC /* ReadMe.txt */,
@@ -217,7 +217,7 @@
 				F7694A4E0F40F82A006C6FBF /* OpenGLES.framework */,
 				F7694A590F40F844006C6FBF /* QuartzCore.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
-				88FE26970F1FF8561287BCF1 /* libPods-SpeakHere.a */,
+				5E1B4BFA2563A05916F3EA49 /* libPods-SpeakHere.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -307,7 +307,7 @@
 				German,
 				en,
 			);
-			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
+			mainGroup = 29B97314FDCFA39411CA2CEA;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
