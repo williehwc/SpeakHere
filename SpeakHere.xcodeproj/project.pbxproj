@@ -127,8 +127,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				96EF7DC41E3B011900C69E1F /* SPUserResizableView.h */,
-				96EF7DC51E3B011900C69E1F /* SPUserResizableView.m */,
+				964505781E3FA5B700A3AD4F /* SPUserResizableView */,
 				F76949EE0F40F337006C6FBF /* Play & Record */,
 				F76949C50F40F2AC006C6FBF /* SpeakHereController.h */,
 				F76949C60F40F2AC006C6FBF /* SpeakHereController.mm */,
@@ -161,7 +160,7 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		29B97314FDCFA39411CA2CEA = {
+		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
 				F73FE19D0F743C1900F0F3CC /* ReadMe.txt */,
@@ -236,6 +235,15 @@
 			path = PublicUtility;
 			sourceTree = "<group>";
 		};
+		964505781E3FA5B700A3AD4F /* SPUserResizableView */ = {
+			isa = PBXGroup;
+			children = (
+				96EF7DC41E3B011900C69E1F /* SPUserResizableView.h */,
+				96EF7DC51E3B011900C69E1F /* SPUserResizableView.m */,
+			);
+			name = SPUserResizableView;
+			sourceTree = "<group>";
+		};
 		F76949D90F40F32A006C6FBF /* AudioViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -307,7 +315,7 @@
 				German,
 				en,
 			);
-			mainGroup = 29B97314FDCFA39411CA2CEA;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";

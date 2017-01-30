@@ -22,36 +22,40 @@ NSMutableArray *soundBites;
     [soundBitesView setTagColor:[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0]];
     [soundBitesView setTapBlock:^(NSString *tagText, NSInteger idx, UIButton* tagButton)
      {
-         // Show hypotheses
-         NSArray *hypotheses = [[soundBites objectAtIndex:idx] objectForKey:@"hypotheses"];
+         // Check if idx (index) is within range
+         if (idx < [soundBites count]) {
          
-         // Get initial selection
-         int initialSelection = 0;
-         for (int i = 0; i < [hypotheses count]; i++) {
-             if ([[hypotheses objectAtIndex:i] isEqualToString:[[soundBites objectAtIndex:idx] objectForKey:@"currentHypothesis"]]) {
-                 initialSelection = i;
-             }
+             // Show hypotheses
+             NSArray *hypotheses = [[soundBites objectAtIndex:idx] objectForKey:@"hypotheses"];
+         
+             // Get initial selection
+             int initialSelection = 0;
+             for (int i = 0; i < [hypotheses count]; i++) {
+                if ([[hypotheses objectAtIndex:i] isEqualToString:[[soundBites objectAtIndex:idx] objectForKey:@"currentHypothesis"]]) {
+                    initialSelection = i;
+                }
+            }
+             
+             [ActionSheetStringPicker
+            showPickerWithTitle: @"Select interpretation"
+            rows: hypotheses
+            initialSelection: initialSelection
+            doneBlock: ^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
+                // Set new current hypothesis
+                NSDictionary *replacementDictionary = @{@"currentHypothesis" : [[hypotheses objectAtIndex:selectedIndex] retain], @"hypotheses" : [hypotheses retain]};
+                soundBites[idx] = replacementDictionary;
+                // Replace all tags
+                NSMutableArray *replacementTags = [NSMutableArray array];
+                for (int i = 0; i < [soundBites count]; i++) {
+                    [replacementTags addObject:[[soundBites objectAtIndex:i] objectForKey:@"currentHypothesis"]];
+                }
+                CGPoint scrollPosition = [soundBitesView contentOffset];
+                [soundBitesView replaceTags:replacementTags];
+                soundBitesView.contentOffset = scrollPosition;
+            }
+            cancelBlock: ^(ActionSheetStringPicker *picker) {}
+            origin: tagButton];
          }
-         
-         [ActionSheetStringPicker
-          showPickerWithTitle: @"Select interpretation"
-          rows: hypotheses
-          initialSelection: initialSelection
-          doneBlock: ^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
-              // Set new current hypothesis
-              NSDictionary *replacementDictionary = @{@"currentHypothesis" : [[hypotheses objectAtIndex:selectedIndex] retain], @"hypotheses" : [hypotheses retain]};
-              soundBites[idx] = replacementDictionary;
-              // Replace all tags
-              NSMutableArray *replacementTags = [NSMutableArray array];
-              for (int i = 0; i < [soundBites count]; i++) {
-                  [replacementTags addObject:[[soundBites objectAtIndex:i] objectForKey:@"currentHypothesis"]];
-              }
-              CGPoint scrollPosition = [soundBitesView contentOffset];
-              [soundBitesView replaceTags:replacementTags];
-              soundBitesView.contentOffset = scrollPosition;
-          }
-          cancelBlock: ^(ActionSheetStringPicker *picker) {}
-          origin: tagButton];
      }];
     [soundBitesView setDeleteBlock:^(NSString *tagText, NSInteger idx, UIButton* tagButton)
      {
