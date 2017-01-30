@@ -8,5 +8,3 @@ Based on Apple's SpeakHere sample, this project aims to expand it by adding the 
 1. Get [CocoaPods](https://cocoapods.org) and set it up properly.
 2. In the project root directory, run `pod install` (if this fails, CocoaPods is not set up properly).
 3. Remember to open the project in Xcode via the workspace, not the project file!
-
-Note: Some dependencies use `@import UIKit`, which is not supported. Please change them manually to `#import <UIKit/UIKit.h>` and the project should build fine.
